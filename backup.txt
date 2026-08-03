@@ -1,0 +1,53 @@
+import streamlit as st
+
+from tracker import (tarckerPemasukkan, tarckerPengeluaran)
+
+
+menjalankan_app_pemasukkan = tarckerPemasukkan()
+menjalankan_app_pengeluaran = tarckerPengeluaran()
+while __name__ == "__main__":
+    print(f"==Tracker Keuangan==\n")
+    print(f"1. tambah pemasukkan")
+    print(f"2. tambah pengeluaran")
+
+    pilihan_menu = int(input("pilih menu: "))
+    if pilihan_menu == 1:
+        input_pemasukkan = input("nominal pemasukkan?")
+        input_jenis_pemasukkan = input("jenis pemasukkan?")
+        menjalankan_app_pemasukkan.input_pemasukkan(
+            input_pemasukkan, input_jenis_pemasukkan
+        )
+        # menjalankanapp.input_pemasukkan()
+        # menjalankanapp.tampilkan()
+
+        print("1. liat semua")
+        print("2. hapus")
+        print("0. kembali")
+
+        menu_pemasukkan = int(input("pilih menu: "))
+        if menu_pemasukkan == 1:
+            menjalankan_app_pemasukkan.tampilkan_semua()
+        elif menu_pemasukkan == 2:
+            menjalankan_app_pemasukkan.hapus()
+        elif menu_pemasukkan == 0:
+            break
+
+    elif pilihan_menu == 2:
+        input_pengeluaran = input("nominal pengeluaran?")
+        input_jenis_pengeluaran = input("jenis pengeluaran?")
+        menjalankan_app_pengeluaran.input_pengeluaran(
+            input_pengeluaran, input_jenis_pengeluaran
+        )
+
+        print("1. liat semua")
+        print("2. hapus")
+        print("0. kembali")
+
+        menu_pemasukkan = int(input("pilih menu: "))
+        if menu_pemasukkan == 1:
+            menjalankan_app_pengeluaran.tampilkan_semua()
+        elif menu_pemasukkan == 2:
+            menjalankan_app_pengeluaran.hapus()
+        elif menu_pemasukkan == 0:
+            break
+# APLIKASI PENCATATAN KEUANGAN DENGAN MUDAH DAN MEMILIKI ANALISIS
