@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 from tracker import (tarckerPemasukkan, tarckerPengeluaran)
 from database import (buat_tabel,
                       tampilkan_list,

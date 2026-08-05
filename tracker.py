@@ -25,10 +25,6 @@ class tarckerPemasukkan:
         for items in self.list_pemasukkan:
             tambah_item(
                 items['tipe'], items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'])
-            # print(f"pemasukkan: {items['nominal']}")
-            # print(f"tipe: {items['tipe']}")
-            # print(f"jenis pemasukkan: {items['jenis']}")
-            # print(f"waktu: {items['waktu']}, {items['jam']}\n")
 
     def hapus(self):
         self.list_pemasukkan.clear()
@@ -60,9 +56,6 @@ class tarckerPengeluaran:
         for items in self.list_pengeluaran:
             tambah_item(
                 "pengeluaran", items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'])
-            # print(f"pengeluaran: {items['pengeluaran']}")
-            # print(f"jenis pengeluaran: {items['jenis']}")
-            # print(f"waktu: {items['waktu']}, {items['jam']}\n")
 
     def hapus(self):
         self.list_pengeluaran.clear()
