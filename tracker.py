@@ -24,8 +24,9 @@ class tarckerPemasukkan:
     def tampilkan_semua(self):
         for items in self.list_pemasukkan:
             tambah_item(
-                "pemasukkan", items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'])
-            # print(f"pemasukkan: {items['pemasukkan']}")
+                items['tipe'], items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'])
+            # print(f"pemasukkan: {items['nominal']}")
+            # print(f"tipe: {items['tipe']}")
             # print(f"jenis pemasukkan: {items['jenis']}")
             # print(f"waktu: {items['waktu']}, {items['jam']}\n")
 

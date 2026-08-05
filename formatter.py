@@ -40,8 +40,10 @@ def format_jam(date):
 
 def formatListPemasukkan(data_pemasukkan, jenis_pemasukkan):
     waktu = datetime.now()
+    tipe = 'pemasukkan'
     items = {
         'nominal': data_pemasukkan,
+        'tipe': tipe,
         'jenis': jenis_pemasukkan,
         'waktu': format_tanggal(waktu),
         'jam': format_jam(waktu)
@@ -52,8 +54,10 @@ def formatListPemasukkan(data_pemasukkan, jenis_pemasukkan):
 
 def formatListPengeluaran(data_pengeluaran, jenis_pengeluaran):
     waktu = datetime.now()
+    tipe = 'pengeluaran'
     items = {
         'nominal': data_pengeluaran,
+        'tipe': tipe,
         'jenis': jenis_pengeluaran,
         'waktu': format_tanggal(waktu),
         'jam': format_jam(waktu)
