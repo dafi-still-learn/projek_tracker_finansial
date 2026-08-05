@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from tracker import (tarckerPemasukkan, tarckerPengeluaran)
 from database import (buat_tabel,
                       tampilkan_list,
@@ -6,7 +7,8 @@ from database import (buat_tabel,
                       tampilkan_total_pengeluaran,
                       seluruh_saldo,
                       tampilkan_tipe,
-                      tampilkan_nominal)
+                      tampilkan_nominal,
+                      tampilkan_waktu)
 
 buat_tabel()
 
@@ -31,7 +33,6 @@ with st.container(gap='small', border=True):
                         input_pemasukkan, input_jenis_pemasukkan)
 
                     menjalankan_app_pemasukkan.tampilkan_semua()
-                    print(seluruh_saldo())
 
                 except Exception as e:
                     st.write(e)
@@ -53,17 +54,15 @@ with st.container(gap='small', border=True):
                         input_pengeluaran, input_jenis_pengeluaran)
 
                     menjalankan_app_pengeluaran.tampilkan_semua()
-                    print(seluruh_saldo())
 
                     tampilkan_list()
-                # st.rerun()
                 except Exception as e:
                     st.write(e)
             else:
                 st.write('masukkan nominal dan jenis')
 # TAMPILAN SELURUH SALDO
 with st.container(gap='small', border=True):
-    st.subheader(seluruh_saldo())
+    st.subheader(f'saldo: {seluruh_saldo()}')
 # DASHBOARD SEMUA INPUTAN
 with st.container(gap='small', border=True):
     with st.expander('liat semua'):
@@ -85,14 +84,19 @@ with st.container(gap='small', border=True):
 # ANALISIS DIAGRAM ATAU CHART
 with st.container(gap='small', border=True):
     with st.expander('analisis pemasukkan'):
-        st.line_chart(tampilkan_nominal('pemasukkan'))
-        pass
+        df = pd.DataFrame({'waktu': tampilkan_waktu('pemasukkan'),
+                           'nominal': tampilkan_nominal('pemasukkan')})
+        df = df.set_index('waktu')
+        st.line_chart(df)
+
 with st.container(gap='small', border=True):
     with st.expander('analisis pengeluaran'):
-        st.line_chart(tampilkan_nominal('pengeluaran'))
-        pass
-    # BISA CEK ATAU MILIH HARI APA SEBELUMNYA
-    # DOWNLOAD EXCEL SEMUA INPUTAN
+        df = pd.DataFrame({'waktu': tampilkan_waktu('pengeluaran'),
+                           'nominal': tampilkan_nominal('pengeluaran')})
+        df = df.set_index('waktu')
+        st.line_chart(df)
+# BISA CEK ATAU MILIH HARI APA SEBELUMNYA
+# DOWNLOAD EXCEL SEMUA INPUTAN
 with st.container(gap='small', border=True):
     with st.expander('download excel'):
         pass

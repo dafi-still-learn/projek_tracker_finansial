@@ -92,7 +92,6 @@ def seluruh_saldo():
 def tampilkan_total_pemasukkan():
     df = ambil_data()
 
-    # print(df['jenis'].unique())
     total = df.loc[df['tipe'] == 'pemasukkan', 'nominal'].sum()
 
     # ! TERJADI PEMANGGILAN 2 KALI DI FUNCTION INI, DAN FUNCTION SEJENISNYA
@@ -120,3 +119,10 @@ def tampilkan_nominal(tipe):
     total = df.loc[df['tipe'] == tipe, 'nominal']
 
     return total
+
+
+def tampilkan_waktu(tipe):
+    df = ambil_data()
+    waktu = df.loc[df['tipe'] == tipe, 'waktu']
+
+    return waktu
