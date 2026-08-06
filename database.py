@@ -12,7 +12,8 @@ def buat_tabel():
     tipe TEXT,
     jenis TEXT,
     nominal INTEGER,
-    waktu TEXT)
+    waktu TEXT,
+    waktu_database DATETIME)
     """)
 
     conn.commit()
@@ -31,18 +32,19 @@ def cek_tabel():
 # KU SIMPAN DI TRACKER
 
 
-def tambah_item(tipe, jenis, nominal, waktu):
+def tambah_item(tipe, jenis, nominal, waktu, waktu_database):
     conn = sq.connect('keuangan.db')
 
     cursor = conn.cursor()
     cursor.execute("""
-    INSERT INTO transaksi(tipe, jenis, nominal, waktu)
-    VALUES(?, ?, ?, ?)
-    """, (tipe, jenis, nominal, waktu))
+    INSERT INTO transaksi(tipe, jenis, nominal, waktu, waktu_database)
+    VALUES(?, ?, ?, ?, ?)
+    """, (tipe, jenis, nominal, waktu, waktu_database))
     print(tipe)
     print(jenis)
     print(nominal)
     print(waktu)
+    print(waktu_database)
     conn.commit()
     conn.close()
 
@@ -57,10 +59,26 @@ def tampilkan_list():  # ! AWAL MULA ERROR NYA (DATA TERAMBIL BANYAK KETIKA DIPN
     data = cursor.fetchall()
 
     df = pd.DataFrame(
-        data, columns=['id', 'tipe', 'jenis', 'nominal', 'waktu'])
+        data, columns=['id', 'tipe', 'jenis', 'nominal', 'waktu', 'waktu_database'])
     # print(df)
     # for item in data:
     #     print(item)
+
+    conn.close()
+    return df
+
+
+def filter_tracker_7day():
+    conn = sq.connect('keuangan.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    SELECT * from transaksi
+    WHERE datetime(waktu_database) >= datetime('now', '-7 days')
+    """)
+
+    data = cursor.fetchall()
+    df = pd.DataFrame(
+        data, columns=['id', 'tipe', 'jenis', 'nominal', 'waktu', 'waktu_database'])
 
     conn.close()
     return df

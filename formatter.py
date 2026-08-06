@@ -45,6 +45,7 @@ def formatListPemasukkan(data_pemasukkan, jenis_pemasukkan):
         'nominal': data_pemasukkan,
         'tipe': tipe,
         'jenis': jenis_pemasukkan,
+        'waktu_database': waktu,
         'waktu': format_tanggal(waktu),
         'jam': format_jam(waktu)
     }
@@ -59,6 +60,7 @@ def formatListPengeluaran(data_pengeluaran, jenis_pengeluaran):
         'nominal': data_pengeluaran,
         'tipe': tipe,
         'jenis': jenis_pengeluaran,
+        'waktu_database': waktu,
         'waktu': format_tanggal(waktu),
         'jam': format_jam(waktu)
     }

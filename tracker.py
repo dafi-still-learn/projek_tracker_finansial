@@ -24,7 +24,7 @@ class tarckerPemasukkan:
     def tampilkan_semua(self):
         for items in self.list_pemasukkan:
             tambah_item(
-                items['tipe'], items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'])
+                items['tipe'], items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'], items['waktu_database'])
 
     def hapus(self):
         self.list_pemasukkan.clear()
@@ -55,7 +55,7 @@ class tarckerPengeluaran:
     def tampilkan_semua(self):
         for items in self.list_pengeluaran:
             tambah_item(
-                "pengeluaran", items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'])
+                "pengeluaran", items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'], items['waktu_database'])
 
     def hapus(self):
         self.list_pengeluaran.clear()

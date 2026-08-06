@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from tracker import (tarckerPemasukkan, tarckerPengeluaran)
 from database import (buat_tabel,
+                      cek_tabel,
+                      ambil_data,
+                      filter_tracker_7day,
                       tampilkan_list,
                       tampilkan_total_pemasukkan,
                       tampilkan_total_pengeluaran,
@@ -9,7 +12,7 @@ from database import (buat_tabel,
                       tampilkan_tipe,
                       tampilkan_nominal,
                       tampilkan_waktu)
-
+import openpyxl as op
 buat_tabel()
 
 menjalankan_app_pemasukkan = tarckerPemasukkan()
@@ -33,7 +36,7 @@ with st.container(gap='small', border=True):
                         input_pemasukkan, input_jenis_pemasukkan)
 
                     menjalankan_app_pemasukkan.tampilkan_semua()
-
+                    cek_tabel()
                 except Exception as e:
                     st.write(e)
             else:
@@ -54,8 +57,6 @@ with st.container(gap='small', border=True):
                         input_pengeluaran, input_jenis_pengeluaran)
 
                     menjalankan_app_pengeluaran.tampilkan_semua()
-
-                    tampilkan_list()
                 except Exception as e:
                     st.write(e)
             else:
@@ -66,7 +67,7 @@ with st.container(gap='small', border=True):
 # DASHBOARD SEMUA INPUTAN
 with st.container(gap='small', border=True):
     with st.expander('liat semua'):
-        st.dataframe(tampilkan_list())
+        st.dataframe(ambil_data())
         st.write(f'total: {seluruh_saldo()}')
 # DASHBOARD PEMASUKKAN
 with st.container(gap='small', border=True):
@@ -96,10 +97,19 @@ with st.container(gap='small', border=True):
         df = df.set_index('waktu')
         st.line_chart(df)
 # BISA CEK ATAU MILIH HARI APA SEBELUMNYA
-# DOWNLOAD EXCEL SEMUA INPUTAN
+with st.container(gap='small', border=True):
+    with st.expander('sorter 7 day'):
+        if st.button('click me'):
+            st.dataframe(filter_tracker_7day())
+        # DOWNLOAD EXCEL SEMUA INPUTAN
 with st.container(gap='small', border=True):
     with st.expander('download excel'):
-        pass
+        data_excel = 'open_tracker_data.xlsx'
+        tampilkan_list().to_excel(data_excel)
+
+        with open(data_excel, 'rb') as f:
+            st.download_button('download excel semua data', data=f, file_name='data_excel.xlsx',
+                               mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
 
 # APLIKASI PENCATATAN KEUANGAN DENGAN MUDAH DAN MEMILIKI ANALISIS
