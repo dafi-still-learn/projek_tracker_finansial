@@ -12,7 +12,6 @@ from database import (buat_tabel,
                       tampilkan_tipe,
                       tampilkan_nominal,
                       tampilkan_waktu)
-import openpyxl as op
 buat_tabel()
 
 menjalankan_app_pemasukkan = tarckerPemasukkan()
