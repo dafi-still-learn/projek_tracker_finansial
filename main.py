@@ -5,6 +5,9 @@ from database import (buat_tabel,
                       cek_tabel,
                       ambil_data,
                       filter_tracker_7day,
+                      filter_tracker_3day,
+                      filter_tracker_10day,
+                      filter_tracker_30day,
                       tampilkan_list,
                       tampilkan_total_pemasukkan,
                       tampilkan_total_pengeluaran,
@@ -86,20 +89,32 @@ with st.container(gap='small', border=True):
     with st.expander('analisis pemasukkan'):
         df = pd.DataFrame({'waktu': tampilkan_waktu('pemasukkan'),
                            'nominal': tampilkan_nominal('pemasukkan')})
-        df = df.set_index('waktu')
-        st.line_chart(df)
+        df['waktu'] = pd.to_datetime(df['waktu'])
+        df = df.sort_values('waktu', ascending=True)
+
+        # df = df.set_index('waktu')
+        st.line_chart(df, x='waktu', y='nominal')
+
 
 with st.container(gap='small', border=True):
     with st.expander('analisis pengeluaran'):
         df = pd.DataFrame({'waktu': tampilkan_waktu('pengeluaran'),
                            'nominal': tampilkan_nominal('pengeluaran')})
-        df = df.set_index('waktu')
-        st.line_chart(df)
+        df['waktu'] = pd.to_datetime(df['waktu'])
+        df = df.sort_values('waktu', ascending=True)
+        # df = df.set_index('waktu')
+        st.line_chart(df, x='waktu', y='nominal')
 # BISA CEK ATAU MILIH HARI APA SEBELUMNYA
 with st.container(gap='small', border=True):
-    with st.expander('sorter 7 day'):
-        if st.button('click me'):
+    with st.expander('sorter day'):
+        if st.button('sorted 3 day'):
+            st.dataframe(filter_tracker_3day())
+        if st.button('sorted 7 day'):
             st.dataframe(filter_tracker_7day())
+        if st.button('sorted 10 day'):
+            st.dataframe(filter_tracker_10day())
+        if st.button('sorted 30 day'):
+            st.dataframe(filter_tracker_30day())
         # DOWNLOAD EXCEL SEMUA INPUTAN
 with st.container(gap='small', border=True):
     with st.expander('download excel'):

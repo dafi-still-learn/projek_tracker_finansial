@@ -84,11 +84,59 @@ def filter_tracker_7day():
     return df
 
 
+def filter_tracker_3day():
+    conn = sq.connect('keuangan.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    SELECT * from transaksi
+    WHERE datetime(waktu_database) >= datetime('now', '-3 days')
+    """)
+
+    data = cursor.fetchall()
+    df = pd.DataFrame(
+        data, columns=['id', 'tipe', 'jenis', 'nominal', 'waktu', 'waktu_database'])
+
+    conn.close()
+    return df
+
+
+def filter_tracker_10day():
+    conn = sq.connect('keuangan.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    SELECT * from transaksi
+    WHERE datetime(waktu_database) >= datetime('now', '-10 days')
+    """)
+
+    data = cursor.fetchall()
+    df = pd.DataFrame(
+        data, columns=['id', 'tipe', 'jenis', 'nominal', 'waktu', 'waktu_database'])
+
+    conn.close()
+    return df
+
+
+def filter_tracker_30day():
+    conn = sq.connect('keuangan.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    SELECT * from transaksi
+    WHERE datetime(waktu_database) >= datetime('now', '-30 days')
+    """)
+
+    data = cursor.fetchall()
+    df = pd.DataFrame(
+        data, columns=['id', 'tipe', 'jenis', 'nominal', 'waktu', 'waktu_database'])
+
+    conn.close()
+    return df
+
+
 def ambil_data():
     conn = sq.connect('keuangan.db')
 
     df = pd.read_sql_query("""
-    SELECT tipe, jenis, nominal, waktu
+    SELECT tipe, jenis, nominal, waktu, waktu_database
     FROM transaksi
     """, conn)
 
@@ -141,6 +189,6 @@ def tampilkan_nominal(tipe):
 
 def tampilkan_waktu(tipe):
     df = ambil_data()
-    waktu = df.loc[df['tipe'] == tipe, 'waktu']
+    waktu = df.loc[df['tipe'] == tipe, 'waktu_database']
 
     return waktu
