@@ -26,10 +26,6 @@ class tarckerPemasukkan:
             tambah_item(
                 items['tipe'], items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'], items['waktu_database'])
 
-    def hapus(self):
-        self.list_pemasukkan.clear()
-        print("list sudah kosong")
-
 
 class tarckerPengeluaran:
     def __init__(self):
@@ -56,7 +52,3 @@ class tarckerPengeluaran:
         for items in self.list_pengeluaran:
             tambah_item(
                 "pengeluaran", items['jenis'], items['nominal'], items['waktu'] + ", " + items['jam'], items['waktu_database'])
-
-    def hapus(self):
-        self.list_pengeluaran.clear()
-        print("list sudah kosong")

@@ -26,10 +26,6 @@ bulan = {
 }
 
 
-# items_pemasukkan = []
-# items_pengeluaran = []
-
-
 def format_tanggal(date):
     return f"{hari[date.weekday()]} {date.day} {bulan[date.month]} {date.year}"
 
